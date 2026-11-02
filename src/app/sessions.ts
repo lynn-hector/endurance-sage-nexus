@@ -57,9 +57,20 @@ declare module '@deepseek-ai/cordis' {
  * subagents. It gets no other tool the profile has, whenever it was registered: none that asks or shows a person something,
  * changes the profile, schedules work or starts goals outside the worker slots, the pause and a person's hold, starts or
  * messages other Sessions, or edits documents.
+ *
+ * This deployment also equips workers with the `sentry_*` evidence tools (logs, traces, signaling, metrics, alerts, DB,
+ * Redis, MQ, CI/CD, K8s, TAPD, code and environment switching) registered globally by the `@dsh-sentry/sentry` bundle.
  */
 const WORK_TOOLS = ['read', 'write', 'edit', 'read_image', 'glob', 'grep', 'bash', 'pwsh', 'job_output', 'job_list', 'job_kill', 'web_search',
-  'web_fetch', 'skill', 'todo_write', 'subagent', 'list_subagent_models', 'send_message', 'list_agents', 'interrupt_agent']
+  'web_fetch', 'skill', 'todo_write', 'subagent', 'list_subagent_models', 'send_message', 'list_agents', 'interrupt_agent',
+  // sentry evidence tools (@dsh-sentry/sentry), registered in the same DSH host
+  'sentry_query_logs', 'sentry_list_log_services', 'sentry_fetch_trace', 'sentry_query_call_flow',
+  'sentry_query_metrics', 'sentry_list_metrics', 'sentry_list_alerts', 'sentry_get_alert_rule',
+  'sentry_list_am_alerts', 'sentry_list_am_silences', 'sentry_query_db', 'sentry_query_redis', 'sentry_query_mq',
+  'sentry_query_zadig', 'sentry_query_k8s_pods', 'sentry_read_k8s_pod_logs', 'sentry_list_k8s_events',
+  'sentry_query_k8s_resource', 'sentry_top_k8s_pods', 'sentry_top_k8s_nodes', 'sentry_list_k8s_namespaces',
+  'sentry_read_k8s_node_logs', 'sentry_read_k8s_node_stats', 'sentry_query_tapd', 'sentry_search_code',
+  'sentry_read_code', 'sentry_sync_code', 'sentry_env_list', 'sentry_env_current', 'sentry_env_switch']
 /** What the main Session is told when it would wait: what it waits for comes to it, and a waiting step holds back the next. */
 const NO_WAIT = 'Reports, follow_up notices, new candidates and a background job\'s end with its output arrive by themselves as messages; '
   + 'end the turn instead of waiting for them.'
